@@ -10,6 +10,7 @@ import UIKit
 
 class ItemCell: UITableViewCell {
 
+    // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -17,8 +18,9 @@ class ItemCell: UITableViewCell {
         valueLabel.adjustsFontForContentSizeCategory = true
         serialNumberLabel.adjustsFontForContentSizeCategory = true
         
-        
     }
+    
+    // MARK: - Instance methods
     
     func setValueColor(){
         let value = valueLabel.text!.value
@@ -30,10 +32,14 @@ class ItemCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // MARK: - @IBOutlets
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var serialNumberLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
 }
+
+// MARK: - String extension
 
 extension String{
     var value: Int {

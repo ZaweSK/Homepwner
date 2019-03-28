@@ -10,17 +10,30 @@ import UIKit
 
 class ItemsViewController: UITableViewController {
 
+    // MARK: - Stored Properities
+    
     var itemStore: ItemStore!
     var imageStore: ImageStore!
     
+    
+    // MARK: - Life Cycle of ViewController
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
-        
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 65
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        navigationItem.leftBarButtonItem = editButtonItem
+    }
+    
     
     // MARK: - @IBOutlets & @IBActions
     @IBAction func addNewItem(_ sender: UIBarButtonItem){
@@ -31,11 +44,6 @@ class ItemsViewController: UITableViewController {
         }
         
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        navigationItem.leftBarButtonItem = editButtonItem
-    }
 
     // MARK: - Table view data source & delegate
     
@@ -43,9 +51,7 @@ class ItemsViewController: UITableViewController {
         return itemStore.allItems.count
     }
     
-    //    private func isLastRow(_ indexPath: IndexPath) -> Bool{
-    //        return indexPath.row == itemStore.allItems.count
-    //    }
+    // MARK: - TableView Delegate & DataSource methods
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
@@ -67,7 +73,9 @@ class ItemsViewController: UITableViewController {
             let item = itemStore.allItems[indexPath.row]
             
             let title = "Delete \(item.name)"
+            
             let message = "Are you sure you want to delete this item?"
+            
             let ac = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -95,23 +103,6 @@ class ItemsViewController: UITableViewController {
         return "Remove"
     }
     
-//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-//        return (tableView.cellForRow(at: indexPath))?.reuseIdentifier == "NoMoreItemsCell" ? .none : .delete
-//    }
-//
-//    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-//        return (tableView.cellForRow(at: indexPath))?.reuseIdentifier == "NoMoreItemsCell" ? false : true
-//    }
-    
-//    override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-//        if proposedDestinationIndexPath.row == itemStore.allItems.count  {
-//            return IndexPath(row: proposedDestinationIndexPath.row - 1, section: 0)
-//        }else{
-//            return proposedDestinationIndexPath
-//        }
-//    }
-    
-    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showItem"{
@@ -124,8 +115,5 @@ class ItemsViewController: UITableViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
+    
 }

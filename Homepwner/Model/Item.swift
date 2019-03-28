@@ -9,7 +9,11 @@
 import Foundation
 import UIKit
 
-class Item: NSObject, NSCoding {
+class Item: NSObject, NSCoding
+{
+    
+    // MARK: - Encoding
+    
     func encode(with aCoder: NSCoder) {
         aCoder.encode(name, forKey: "name")
         aCoder.encode(dateCreated, forKey: "dateCreated")
@@ -17,6 +21,8 @@ class Item: NSObject, NSCoding {
         aCoder.encode(serialNumber, forKey: "serialNumber")
         aCoder.encode(valueInDollars, forKey: "valueInDollars")
     }
+    
+    // MARK: - Decoding
     
     required init?(coder aDecoder: NSCoder) {
         name = aDecoder.decodeObject(forKey: "name") as! String
@@ -28,11 +34,15 @@ class Item: NSObject, NSCoding {
         super.init()
     }
     
+    // MARK: - Stored Properities
+    
     var name : String
     var valueInDollars : Int
     var serialNumber : String?
     var dateCreated: Date
     let itemKey: String
+    
+    //MARK: - Initialisers
     
     init(name: String, value: Int, serialNumber : String?){
         //ensure that all properities in the class have value
@@ -69,6 +79,7 @@ class Item: NSObject, NSCoding {
     
 }
 
+//MARK: - Integer extension
 
 extension Int{
     var arc4_random: Int {

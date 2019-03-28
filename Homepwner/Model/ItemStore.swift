@@ -9,6 +9,9 @@
 import Foundation
 
 class ItemStore{
+    
+    // MARK: - Stored Properities
+    
     var allItems = [Item]()
     
     let itemArchiveURL : URL = {
@@ -18,6 +21,7 @@ class ItemStore{
         
     }()
     
+    // MARK: - Instance methods
     
     @discardableResult func createItem() ->Item {
         let newItem = Item(random: true)
@@ -45,6 +49,8 @@ class ItemStore{
         print("Saving items to \(itemArchiveURL.path)")
         return NSKeyedArchiver.archiveRootObject(allItems, toFile: itemArchiveURL.path)
     }
+    
+    // MARK: - Initialisers
     
     init() {
         if let archivedItems = NSKeyedUnarchiver.unarchiveObject(withFile: itemArchiveURL.path) as?  [Item] {

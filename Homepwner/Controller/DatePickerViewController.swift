@@ -9,11 +9,16 @@
 import UIKit
 
 class DatePickerViewController: UIViewController {
+    
+    // MARK: - Stored Properities
+    
     var item: Item! {
         didSet{
             navigationItem.title = "\(item.name) creation date"
         }
     }
+    
+    //MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +32,8 @@ class DatePickerViewController: UIViewController {
         datePicker.date = item.dateCreated
     }
 
+    // MARK: - @IBActions & @IBOutlets
+    
     @IBOutlet var datePicker: UIDatePicker!
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
@@ -39,6 +46,4 @@ class DatePickerViewController: UIViewController {
         
         self.present(alert, animated: true, completion: nil)
     }
-    
-    
 }

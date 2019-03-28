@@ -8,20 +8,8 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    // MARK: - @IBOutlets & @IBActions
-    @IBOutlet var nameField: BorderedTextField!
-    @IBOutlet var serialNumberField: BorderedTextField!
-    @IBOutlet var valueField: BorderedTextField!
-    @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var imageView: UIImageView!
-    
-    @IBOutlet var trashButton: UIBarButtonItem!
-    @IBAction func backgroundTapped(_ sender: UITapGestureRecognizer) {
-        view.endEditing(true)
-    }
-    
+class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate
+{
     
     // MARK: - Properties
     var item: Item! {
@@ -31,40 +19,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     }
     var imageStore: ImageStore!
     
-    
-    // MARK: - Formatters
-    let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        return formatter
-    }()
-    
-    let numberFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.minimumFractionDigits = 2
-        formatter.maximumFractionDigits = 2
-        return formatter
-    }()
-    
-    
-    
-    // MARK: - UITextFieldDelegate methods
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDatePicker"{
-            if let datePickerCV = segue.destination as? DatePickerViewController{
-                datePickerCV.item = item
-            }
-        }
-    }
     
     // MARK: - Life cycle methods
     override func viewWillAppear(_ animated: Bool) {
@@ -96,33 +50,17 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         }
     }
     
+    // MARK: - @IBOutlets & @IBActions
+    @IBOutlet var nameField: BorderedTextField!
+    @IBOutlet var serialNumberField: BorderedTextField!
+    @IBOutlet var valueField: BorderedTextField!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var imageView: UIImageView!
     
-    // MARK: - Image Handling
+    @IBOutlet var trashButton: UIBarButtonItem!
     
-    @IBAction func takePicture(_ sender: UIBarButtonItem) {
-        let imagePicker = UIImagePickerController()
-        if UIImagePickerController.isSourceTypeAvailable(.camera){
-            imagePicker.sourceType = .camera
-        }else{
-            imagePicker.sourceType = .photoLibrary
-        }
-        imagePicker.delegate = self
-        
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        
-        //cache the image
-        imageStore.setImage(image, forKey: item.itemKey)
-        
-        imageView.image = image
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func updateTrashButton(){
-        trashButton.isEnabled = imageView.image != nil ? true : false
+    @IBAction func backgroundTapped(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
     
     @IBAction func trashButtonPressed(_ sender: UIBarButtonItem) {
@@ -139,5 +77,68 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         alert.addAction(deleteAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func takePicture(_ sender: UIBarButtonItem) {
+        let imagePicker = UIImagePickerController()
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            imagePicker.sourceType = .camera
+        }else{
+            imagePicker.sourceType = .photoLibrary
+        }
+        imagePicker.delegate = self
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    // MARK: - UIImagePickerControllerDelegate
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        
+        //cache the image
+        imageStore.setImage(image, forKey: item.itemKey)
+        
+        imageView.image = image
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func updateTrashButton(){
+        trashButton.isEnabled = imageView.image != nil ? true : false
+    }
+    
+    
+    // MARK: - Formatters
+    
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }()
+    
+    let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }()
+    
+    
+    // MARK: - UITextFieldDelegate methods
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDatePicker"{
+            if let datePickerCV = segue.destination as? DatePickerViewController{
+                datePickerCV.item = item
+            }
+        }
     }
 }
