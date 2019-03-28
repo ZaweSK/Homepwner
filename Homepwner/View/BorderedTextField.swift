@@ -22,7 +22,6 @@ class BorderedTextField: UITextField {
     override func resignFirstResponder() -> Bool {
         layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
         
-        
         super.resignFirstResponder()
         return true
     }

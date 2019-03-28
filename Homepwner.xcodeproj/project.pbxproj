@@ -49,6 +49,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D09F12E6224CE1B100D4B056 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D0D45A28220D79F3003BF851 /* Item.swift */,
+				D0D45A2A220D7FF7003BF851 /* ItemStore.swift */,
+				D0807FDB221AD4B700E572ED /* ImageStore.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D09F12E7224CE1C300D4B056 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D0D45A26220D78C7003BF851 /* ItemsViewController.swift */,
+				D01D1D6522158C54004A7209 /* DetailViewController.swift */,
+				D01D1D692216A7EB004A7209 /* DatePickerViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D09F12E8224CE1CB00D4B056 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D01D1D63221566FA004A7209 /* ItemCell.swift */,
+				D01D1D6722169FA0004A7209 /* BorderedTextField.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D0D45A08220D780C003BF851 = {
 			isa = PBXGroup;
 			children = (
@@ -68,16 +97,11 @@
 		D0D45A13220D780C003BF851 /* Homepwner */ = {
 			isa = PBXGroup;
 			children = (
-				D0D45A28220D79F3003BF851 /* Item.swift */,
-				D0D45A2A220D7FF7003BF851 /* ItemStore.swift */,
-				D0D45A26220D78C7003BF851 /* ItemsViewController.swift */,
-				D01D1D63221566FA004A7209 /* ItemCell.swift */,
-				D01D1D6522158C54004A7209 /* DetailViewController.swift */,
-				D0807FDB221AD4B700E572ED /* ImageStore.swift */,
+				D09F12E8224CE1CB00D4B056 /* View */,
+				D09F12E7224CE1C300D4B056 /* Controller */,
+				D09F12E6224CE1B100D4B056 /* Model */,
 				D0D45A14220D780C003BF851 /* AppDelegate.swift */,
 				D0D45A18220D780C003BF851 /* Main.storyboard */,
-				D01D1D692216A7EB004A7209 /* DatePickerViewController.swift */,
-				D01D1D6722169FA0004A7209 /* BorderedTextField.swift */,
 				D0D45A1B220D780E003BF851 /* Assets.xcassets */,
 				D0D45A1D220D780E003BF851 /* LaunchScreen.storyboard */,
 				D0D45A20220D780E003BF851 /* Info.plist */,

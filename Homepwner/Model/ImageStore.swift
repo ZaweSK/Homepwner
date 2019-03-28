@@ -20,6 +20,7 @@ class ImageStore{
         
         //get image url
         let url = imageURL(forKey: key)
+        
         print("URL: \(url)")
         //turn image into data
         if let data = image.jpegData(compressionQuality: 0.5){
